@@ -1,3 +1,7 @@
+using Content.Shared.Actions;
+using Content.Shared.Actions.ActionTypes;
+using Robust.Shared.Utility;
+
 namespace Content.Server.Guardian
 {
     /// <summary>
@@ -25,10 +29,23 @@ namespace Content.Server.Guardian
         [DataField("distanceAllowed")]
         public float DistanceAllowed { get; set; } = 5f;
 
+        [DataField("action")]
+        public InstantAction Action = new()
+        {
+            Name = "action-name-guardian-lovetap",
+            Description = "action-description-guardian-lovetap",
+            Icon = new SpriteSpecifier.Texture(new ResourcePath("Interface/Actions/lovetap.png")),
+            UseDelay = TimeSpan.FromSeconds(120), // can only be used once anyways.
+            CheckCanInteract = false, // allow use while stunned, etc. Gets removed anyways.
+            Event = new GuardianLovetapActionEvent()
+        };
+
         /// <summary>
         /// If the guardian is currently manifested
         /// </summary>
         public bool GuardianLoose = false;
+
+        public sealed class GuardianLovetapActionEvent : InstantActionEvent { };
 
     }
 }

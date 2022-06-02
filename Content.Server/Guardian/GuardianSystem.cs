@@ -13,6 +13,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
+using static Content.Server.Guardian.GuardianComponent;
 
 namespace Content.Server.Guardian
 {
@@ -49,6 +50,18 @@ namespace Content.Server.Guardian
             SubscribeLocalEvent<GuardianHostComponent, GuardianToggleActionEvent>(OnPerformAction);
 
             SubscribeLocalEvent<GuardianComponent, AttackAttemptEvent>(OnGuardianAttackAttempt);
+            SubscribeLocalEvent<GuardianComponent, GuardianLovetapActionEvent>(OnPerformGuardianAction);
+        }
+
+        private void OnPerformGuardianAction(EntityUid uid, GuardianComponent component, GuardianLovetapActionEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (component.Host != null)
+                LoveTap(component, uid);
+
+            args.Handled = true;
         }
 
         private void OnPerformAction(EntityUid uid, GuardianHostComponent component, GuardianToggleActionEvent args)
@@ -340,6 +353,11 @@ namespace Content.Server.Guardian
             DebugTools.Assert(hostComponent.GuardianContainer.Contains(guardianComponent.Owner));
             _popupSystem.PopupEntity(Loc.GetString("guardian-entity-recall"), hostComponent.Owner, Filter.Pvs(hostComponent.Owner));
             guardianComponent.GuardianLoose = false;
+        }
+
+        private void LoveTap(GuardianComponent guardcomp, EntityUid host)
+        {
+            
         }
 
         private sealed class GuardianCreatorInjectedEvent : EntityEventArgs

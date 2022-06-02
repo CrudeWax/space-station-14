@@ -22,7 +22,7 @@
         Blunt: 5
     soundHit:
       path: /Audio/Effects/hit_kick.ogg
-  # TODO: Randomise sprites and randomise the layer color
+  # TODO: Randomize sprites and randomize the layer color
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Aliens/Guardians/guardians.rsi
@@ -61,7 +61,7 @@
   - type: Pullable
   - type: MeleeWeapon
     range: 2
-    arcwidth: 30
+    arcwidth: 10
     arc: fist
     cooldownTime: 0.7
     arcCooldownTime: 0.7
@@ -83,7 +83,7 @@
   name: Holoparasite
   id: MobHoloparasiteGuardian
   parent: MobGuardianBase
-  description: A mesmerising whirl of hard-light patterns weaves a marvelous, yet oddly familiar visage. It stands proud, tuning into its owner's life to sustain itself.
+  description: A mesmerizing whirl of hard-light patterns weaves a marvelous, yet oddly familiar visage. It stands proud, tuning into its owner's life to sustain itself.
   components:
   - type: GhostTakeoverAvailable
     makeSentient: true
